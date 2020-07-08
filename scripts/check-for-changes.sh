@@ -10,6 +10,7 @@ then
 	cd ../
 	git config user.email "change@checker.com"
 	git config user.name "Change Checker"
+	git status
 	git add .
 	git commit -m "CHANGE CHECKER: updated to latest JUCE"
 	git push
