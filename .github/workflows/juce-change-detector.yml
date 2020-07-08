@@ -1,10 +1,10 @@
 name: Juce Change Detector
 
-# Run this action every 15 minutes
+# Run this action every 5 minutes
 on:
   push:
   schedule:
-  - cron: '*/15 * * * *'
+  - cron: '*/5 * * * *'
   
 
 jobs:
