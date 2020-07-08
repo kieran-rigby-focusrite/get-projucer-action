@@ -3,9 +3,9 @@ CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 HEAD_HASH=$(git rev-parse HEAD)
 UPSTREAM_HASH=$(git rev-parse $CURRENT_BRANCH@{upstream})
 
-echo $CURRENT_BRANCH
-echo $HEAD_HASH
-echo $UPSTREAM_HASH
+echo "Current branch: $CURRENT_BRANCH"
+echo "Head Hash: $HEAD_HASH"
+echo "Upstream Hash: $UPSTREAM_HASH"
 
 if [ "$HEAD_HASH" != "$UPSTREAM_HASH" ] 
 then
