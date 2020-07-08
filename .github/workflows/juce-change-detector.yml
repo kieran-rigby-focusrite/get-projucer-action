@@ -23,7 +23,6 @@ jobs:
       id: check-diff
       run: |
         cd JUCE
-        ls
         echo "::set-output name=is-different::$(./../scripts/check-for-changes.sh)"
 
     # Runs a set of commands using the runners shell
