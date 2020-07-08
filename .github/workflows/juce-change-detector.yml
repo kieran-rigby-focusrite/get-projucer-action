@@ -1,10 +1,10 @@
 name: Juce Change Detector
 
-# Run this action every 5 minutes
+# Run this action every 15 minutes
 on:
   push:
   schedule:
-  - cron: '*/5 * * * *'
+  - cron: '*/15 * * * *'
   
 
 jobs:
@@ -23,11 +23,11 @@ jobs:
       id: check-diff
       run: |
         cd JUCE
-        git pull --ff-only --allow-unrelated-histories | grep "Already up to date."
-        echo "::set-output name=is-different::$(echo $?)"
+        echo "::set-output name=is-different::$(./../scripts/check-for-changes.sh)"
 
     # Runs a set of commands using the runners shell
     - name: Build Projucer
-      if: steps.check-diff.outputs.is-different == '1'
+      if: steps.check-diff.outputs.is-different == 'true'
       run: |
+        echo ${{ steps.check-diff.outputs.is-different }}
         echo "Building Projucer..."
