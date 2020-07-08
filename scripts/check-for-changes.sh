@@ -7,6 +7,10 @@ UPSTREAM_HASH=$(git rev-parse master@{upstream})
 if [ "$HEAD_HASH" != "$UPSTREAM_HASH" ] 
 then
 	git merge --ff-only @{u} > /dev/null 2>&1
+	cd ../
+	git add .
+	git commit -m "CHANGE CHECKER: updated to latest JUCE"
+	git push
 	echo true
 else
 	echo false
