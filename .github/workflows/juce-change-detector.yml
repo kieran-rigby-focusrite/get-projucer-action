@@ -24,6 +24,17 @@ jobs:
       run: |
         cd JUCE
         echo "::set-output name=is-different::$(./../scripts/check-for-changes.sh)"
+        
+    - name: Commit any changes
+      if: steps.check-diff.outputs.is-different == 'true'
+      uses: EndBug/add-and-commit@v4
+      with:
+        author_name: Change Checker
+        author_email: changechecker@example.com
+        message: "CHANGE CHECKER: Updating JUCE submodule"
+        add: "juce/"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # Runs a set of commands using the runners shell
     - name: Build Projucer
