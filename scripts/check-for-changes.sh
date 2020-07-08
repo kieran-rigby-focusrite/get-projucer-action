@@ -1,7 +1,8 @@
 git fetch
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+#CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+# For now, just assume we are on master branch
 HEAD_HASH=$(git rev-parse HEAD)
-UPSTREAM_HASH=$(git rev-parse $CURRENT_BRANCH@{upstream})
+UPSTREAM_HASH=$(git rev-parse master@{upstream})
 
 echo "Current branch: $CURRENT_BRANCH"
 echo "Head Hash: $HEAD_HASH"
