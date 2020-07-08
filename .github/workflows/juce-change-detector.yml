@@ -3,7 +3,7 @@ name: Juce Change Detector
 # Run this action every 5 minutes
 on:
   schedule:
-  - cron: '*/5 * * * *'
+  - cron: '*/1 * * * *'
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
       id: check-diff
       run: |
         cd JUCE
-        git pull | grep "Already up to date."
+        git pull --ff-only | grep "Already up to date."
         echo "::set-output name=is-different::$(echo $?)"
 
     # Runs a set of commands using the runners shell
