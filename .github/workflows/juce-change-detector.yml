@@ -21,9 +21,11 @@ jobs:
       - name: Checkout this repo
         uses: actions/checkout@v2
         
-      - name: Get hash from ref
-        id: get-hash
-        run: echo "::set-output name=hash::$(./scripts/get-hash-from-ref.py ${{ env.juce-url }} ${{ matrix.juce-ref }})"
+      - name: Get hash from ref windows
+        id: get-hash-windows
+        run: |
+          cd scripts
+          echo "::set-output name=hash::$(get-hash-from-ref.py ${{ env.juce-url }} ${{ matrix.juce-ref }})"
 
       - name: Testing hash
         run: echo ${{ steps.get-hash.outputs.hash }}
