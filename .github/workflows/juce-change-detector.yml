@@ -25,7 +25,7 @@ jobs:
         id: get-hash
         run: |
           cd scripts
-          echo "::set-output name=hash::$(python get-hash-from-ref.py ${{ env.juce-url }} ${{ matrix.juce-ref }})"
+          echo "::set-output name=hash::$(python2 get-hash-from-ref.py ${{ env.juce-url }} ${{ matrix.juce-ref }})"
 
       - name: Testing hash
         run: echo ${{ steps.get-hash.outputs.hash }}
