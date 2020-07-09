@@ -7,37 +7,15 @@ on:
   - cron: '*/5 * * * *'
   
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  check-for-changes:
+    runs-on: ${{ matrix.os }}
+    strategy: 
+      matrix:
+        juce-branch: [master, develop]
+        os: [macos-latest, windows-latest]
 
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - name: Checkout this repo
-      uses: actions/checkout@v2
-      with:
-        submodules: true
-
-    # Runs a single command using the runners shell
-    - name: Check for differences
-      id: check-diff
-      run: |
-        cd JUCE
-        echo "::set-output name=is-different::$(./../scripts/check-for-changes.sh)"
-        
-    - name: Commit any changes
-      if: steps.check-diff.outputs.is-different == 'true'
-      uses: EndBug/add-and-commit@v4
-      with:
-        author_name: Change Checker
-        author_email: changechecker@example.com
-        message: "CHANGE CHECKER: Updating JUCE submodule"
-        add: "."
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    # Runs a set of commands using the runners shell
-    - name: Build Projucer
-      if: steps.check-diff.outputs.is-different == 'true'
-      run: |
-        echo ${{ steps.check-diff.outputs.is-different }}
-        echo "Building Projucer..."
+      - name: Test job
+      - run: |
+          echo ${{ matrix.os }}
+          echo ${{ matrix.juce-branch }}
