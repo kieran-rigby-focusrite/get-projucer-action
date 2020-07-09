@@ -5,6 +5,9 @@ on:
   push:
   schedule:
   - cron: '*/5 * * * *'
+    
+env:
+  juce-url:  https://github.com/kieran-rigby-focusrite/JUCE
   
 jobs:
   check-for-changes:
@@ -15,7 +18,8 @@ jobs:
         os: [macos-latest, windows-latest]
 
     steps:
-      - name: View matrix
-        run: |
-          echo ${{ matrix.os }}
-          echo ${{ matrix.juce-ref }}
+      - name: Checkout this repo
+        uses: actions/checkout@v2
+        
+      - name: Get hash from ref
+        run: ./scripts/get-hash-from-ref.py ${{ env.juce-url }} ${{ matrix.juce-ref }}
