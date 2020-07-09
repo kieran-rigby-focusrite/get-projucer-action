@@ -11,11 +11,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy: 
       matrix:
-        juce-branch: [master, develop]
+        juce-ref: [master, develop]
         os: [macos-latest, windows-latest]
 
     steps:
-      - name: Test job
-      - run: |
+      - name: View matrix
+        run: |
           echo ${{ matrix.os }}
-          echo ${{ matrix.juce-branch }}
+          echo ${{ matrix.juce-ref }}
