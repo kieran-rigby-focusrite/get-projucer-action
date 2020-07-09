@@ -27,5 +27,16 @@ jobs:
           cd scripts
           echo "::set-output name=hash::$(python2 get-hash-from-ref.py ${{ env.juce-url }} ${{ matrix.juce-ref }})"
 
-      - name: Testing hash
-        run: echo ${{ steps.get-hash.outputs.hash }}
+      - name: Check cache
+        id: check-cache
+        uses: actions/cache@v2
+        with: 
+          path: cache/${{ runner.os }}
+          key: ${{ runner.os }}-${{ steps.get-hash.outputs.hash }}
+
+      - name: Checkout JUCE
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.juce-url }}
+          ref: ${{ steps.get-hash.outputs.hash }}
